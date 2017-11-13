@@ -59,4 +59,5 @@ class DB(object):
         self._conn.commit()
 
     def __del__(self):
+        self._cursor.close()
         self._conn.close()
