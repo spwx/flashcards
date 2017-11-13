@@ -3,7 +3,8 @@
 Finally finished moving all my database functions in to a DB class. This way
 they can all share the same database connection.
 
-Now on to more testing
+Now on to more testing!
+
 
 2017-11-11
 
