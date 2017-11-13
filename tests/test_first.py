@@ -1,5 +1,5 @@
-from flashcards import create_db
+from flashcards.db import DB
 
 
-def test_add():
-    assert 1 == 1
+# def test_db_creation():
+#     create_db(':memory:
