@@ -28,36 +28,44 @@ class DB(object):
 
         self._conn.commit()
 
-    def create_card(self, front, back):
-        values = (front, back)
-
-        self._cursor.execute('INSERT INTO Cards (front, back) VALUES (?, ?)',
-                             values)
-
-        self._conn.commit()
-
-    def create_deck(self, name, parent='default'):
-        value = (parent,)
-
-        # get the deck_id of the parent deck
-        self.cursor.execute('SELECT deck_id FROM Decks WHERE deck_name = ?',
-                            value)
-        parent_deck = self.cursor.fetchone()
-
-        if parent_deck is None:
-            print('Parent deck does not exist')
+    def query(self, sql, values=None):
+        if values is None:
+            return self._cursor.execute(sql)
         else:
-            parent_deck = parent_deck[0]
-            values = (name, parent_deck)
-            try:
-                self.cursor.execute('''
-                    INSERT INTO Decks (deck_name, parent_deck)
-                    VALUES (?, ?)''', values)
-            except sqlite3.IntegrityError:
-                print('There is already a deck by that name')
-
-        self._conn.commit()
+            return self._cursor.execute(sql, values)
 
     def __del__(self):
         self._cursor.close()
         self._conn.close()
+
+
+# def create_card(self, front, back):
+#     values = (front, back)
+
+#     self._cursor.execute('INSERT INTO Cards (front, back) VALUES (?, ?)',
+#                          values)
+
+#     self._conn.commit()
+
+# def create_deck(self, name, parent='default'):
+#     # get the deck_id of the parent deck
+#     parent_deck = self.get_deck(parent)
+
+#     if parent_deck is None:
+#         print('Parent deck does not exist')
+#     else:
+#         parent_deck = parent_deck[0]
+#         values = (name, parent_deck)
+#         try:
+#             self.cursor.execute('''
+#                 INSERT INTO Decks (deck_name, parent_deck)
+#                 VALUES (?, ?)''', values)
+#         except sqlite3.IntegrityError:
+#             print('There is already a deck by that name')
+
+#     self._conn.commit()
+
+# def get_deck(self, name):
+#     self.cursor.execute('SELECT deck_id FROM Decks WHERE deck_name = ?',
+#                         name)
+#     return self.cursor.fetchone()

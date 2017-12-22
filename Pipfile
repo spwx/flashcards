@@ -8,13 +8,13 @@ name = "pypi"
 [packages]
 
 click = "*"
-pbr = "*"
 "e1839a8" = {path = ".", editable = true}
 
 
 [dev-packages]
 
 pytest = "*"
+bpython = "*"
 
 
 [requires]
